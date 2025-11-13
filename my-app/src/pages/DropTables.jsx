@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
+import { useNavigate } from 'react-router-dom';
 
 const DropTablePage = () => {
+  const navigate = useNavigate();
   const [tables, setTables] = useState([]);
   const [selectedTable, setSelectedTable] = useState('');
   const [loading, setLoading] = useState(true);
@@ -30,6 +32,13 @@ const DropTablePage = () => {
   return (
     <div style={{ padding: '20px' }}>
       <h1>Drop Tables</h1>
+
+      <button 
+        onClick={() => navigate('/pages/menu')}
+        style={{ marginBottom: '20px' }}
+      >
+        ← Back to Menu
+      </button>
       
       {loading ? (
         <p>Loading tables...</p>
