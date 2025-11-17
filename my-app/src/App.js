@@ -1,25 +1,17 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import { supabase } from './supabaseClient';
+import './App.css';
+
 
 // Pages
+import StartPage from './pages/StartPage';
 import MenuUI from './pages/MenuUI';
 import DropTablePage from './pages/DropTables';
 import CreateTables from "./pages/CreateTables";
 import PopulateTables from "./pages/PopulateTables";
 import QueryTables from './pages/QueryTables';
 
-// Start Page Component
-const StartPage = () => {
-  const navigate = useNavigate();
-  
-  return (
-    <div style={{ padding: "20px" }}>
-      <h1>Welcome to the Data Center Database</h1>
-      <button onClick={() => navigate('/menu')}>Go to Menu</button>
-    </div>
-  );
-};
 
 function App() {
 

@@ -40,38 +40,7 @@ export default function MenuUI() {
         <button onClick={() => navigate('/')}>Exit</button>
       </div>
 
-      <hr style={{ margin: "20px 0" }} />
 
-      <h3>📡 Active Servers</h3>
-
-      {loading ? (
-        <p>Loading servers...</p>
-      ) : servers.length === 0 ? (
-        <p>No servers found in database.</p>
-      ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {servers.map((server) => (
-            <li
-              key={server.server_id}
-              style={{
-                padding: "10px",
-                border: "1px solid #ddd",
-                marginBottom: "10px",
-                borderRadius: "8px",
-                cursor: "pointer",
-                backgroundColor:
-                  server.status === "active" ? "#d4ffe0" :
-                  server.status === "maintenance" ? "#fff4d4" : "#ffd4d4"
-              }}
-              onClick={() => navigate(`/server/${server.server_id}`)}
-            >
-              <strong>{server.server_name}</strong> <br />
-              Model: {server.model} <br />
-              Status: {server.status}
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 }
