@@ -1,38 +1,327 @@
-.App {
-  text-align: center;
+/* ---------------------------------
+   Global reset & theme tokens
+---------------------------------- */
+:root {
+  --bg: #f2f2f7;
+  --card: #ffffff;
+  --accent: #0071e3;
+  --accent-dark: #005bb5;
+  --border-subtle: #e0e0e5;
+  --text-main: #1d1d1f;
+  --text-muted: #636366;
+  --radius-card: 24px;
+  --radius-button: 12px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    Roboto, sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  background: var(--bg);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
 }
 
-.App-header {
-  background-color: #282c34;
+#root {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: flex-start;
+  padding: 40px 16px;
 }
 
-.App-link {
-  color: #61dafb;
+/* ---------------------------------
+   Main page card (your outer divs)
+   Matches: <div style={{ padding: "20px" }}>
+---------------------------------- */
+div[style*="padding: 20px"] {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  background: var(--card);
+  padding: 32px 40px !important; /* override inline padding */
+  border-radius: var(--radius-card);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* ---------------------------------
+   Typography
+---------------------------------- */
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--text-main);
+}
+
+div[style*="padding: 20px"] > h1,
+div[style*="padding: 20px"] > h2 {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 26px;
+}
+
+h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ---------------------------------
+   Buttons
+---------------------------------- */
+button {
+  padding: 10px 20px;
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-button);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.25s ease;
+  outline: none;
+}
+
+button:hover {
+  background: var(--accent-dark);
+  box-shadow: 0 10px 24px rgba(0, 113, 227, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Make the top "← Back to Menu" button look secondary.
+   It is the first button directly in the page card. */
+div[style*="padding: 20px"] > button:first-of-type {
+  background: #e5e5ea;
+  color: var(--text-main);
+}
+
+div[style*="padding: 20px"] > button:first-of-type:hover {
+  background: #d1d1d6;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ---------------------------------
+   Menu button column (Dashboard)
+   Matches: div with flexDirection: "column"
+---------------------------------- */
+div[style*="flex-direction: 'column'"],
+div[style*='flex-direction: "column"'],
+div[style*="flex-direction: column"] {
+  margin: 0 auto 10px;
+  align-items: stretch;
+  max-width: 260px;
+}
+
+/* ---------------------------------
+   Inputs, selects, textareas
+---------------------------------- */
+input,
+select,
+textarea {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  font-size: 14px;
+  width: 280px;
+  outline: none;
+  transition: 0.2s ease;
+  background: #ffffff;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.25);
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+/* ---------------------------------
+   Horizontal rule
+---------------------------------- */
+hr {
+  border: none;
+  border-top: 1px solid #d1d1d6;
+  margin: 28px 0;
+}
+
+/* ---------------------------------
+   Server list (MenuUI)
+---------------------------------- */
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 12px;
+}
+
+ul li {
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-size: 14px;
+}
+
+ul li:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* ---------------------------------
+   QueryTables – table styling
+---------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+  table-layout: fixed; /* keeps columns even */
+}
+
+th,
+td {
+  padding: 10px 12px;
+  font-size: 13px;
+  text-align: left;
+  border-bottom: 1px solid #e3e3e8;
+  vertical-align: top;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+th {
+  background: #f5f5f7;
+  font-weight: 600;
+}
+
+tbody tr:nth-child(odd) td {
+  background: #fbfbfd;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Make selectedTable + "Load Data" area look nicer */
+div[style*="margin-top: 20px"] select {
+  margin-right: 12px;
+}
+
+div[style*="margin-top: 20px"] button {
+  margin-top: 0;
+}
+
+/* ---------------------------------
+   Messages (status text)
+---------------------------------- */
+p[style*="fontWeight: \"bold\""],
+p[style*="font-weight: bold"] {
+  color: var(--text-main);
+  margin-top: 20px;
+}
+
+/* ---------------------------------
+   Small tweaks for mobile
+---------------------------------- */
+@media (max-width: 640px) {
+  div[style*="padding: 20px"] {
+    padding: 24px 18px !important;
   }
-  to {
-    transform: rotate(360deg);
+
+  table {
+    font-size: 12px;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+  }
+
+  div[style*="flex-direction: column"] {
+    max-width: 100%;
   }
 }
+
+/* -------------------------
+   START PAGE STYLING
+-------------------------- */
+
+.start-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 40px);
+  padding: 20px;
+  background: linear-gradient(180deg, #f4f4f7 0%, #e8e8ee 100%);
+}
+
+.start-card {
+  background: #ffffff;
+  padding: 60px 50px;
+  border-radius: 28px;
+  text-align: center;
+  max-width: 580px;
+  width: 100%;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+.start-card h1 {
+  font-size: 32px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.start-subtitle {
+  font-size: 16px;
+  color: #636366;
+  margin-bottom: 32px;
+}
+
+.start-card .btn {
+  width: 220px;
+  font-size: 16px;
+}
+
+/* Credits text on Start Page */
+.credits {
+  margin-top: 35px;
+  font-size: 14px;
+  color: #8e8e93;
+  letter-spacing: 0.2px;
+}
+
+.credits strong {
+  color: #1d1d1f;
+  font-weight: 600;
+}
+
